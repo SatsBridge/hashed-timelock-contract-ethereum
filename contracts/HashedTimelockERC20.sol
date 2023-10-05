@@ -1,3 +1,4 @@
+/* SPDX-License-Identifier: GNU */
 pragma solidity ^0.7.6;
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";

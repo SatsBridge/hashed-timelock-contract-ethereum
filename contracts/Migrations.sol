@@ -1,10 +1,11 @@
+/* SPDX-License-Identifier: GNU */
 pragma solidity ^0.7.6;
 
 contract Migrations {
   address public owner;
   uint public last_completed_migration;
 
-  constructor() public {
+  constructor() {
     owner = msg.sender;
   }
 
