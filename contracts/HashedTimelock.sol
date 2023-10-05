@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.7.6;
 
 /**
  * @title Hashed Timelock Contracts (HTLCs) on Ethereum ETH.
@@ -50,7 +50,7 @@ contract HashedTimelock {
         // only requirement is the timelock time is after the last blocktime (now).
         // probably want something a bit further in the future then this.
         // but this is still a useful sanity check:
-        require(_time > now, "timelock time must be in the future");
+        require(_time > block.timestamp, "timelock time must be in the future");
         _;
     }
     modifier contractExists(bytes32 _contractId) {
@@ -67,14 +67,14 @@ contract HashedTimelock {
     modifier withdrawable(bytes32 _contractId) {
         require(contracts[_contractId].receiver == msg.sender, "withdrawable: not receiver");
         require(contracts[_contractId].withdrawn == false, "withdrawable: already withdrawn");
-        require(contracts[_contractId].timelock > now, "withdrawable: timelock time must be in the future");
+        require(contracts[_contractId].timelock > block.timestamp, "withdrawable: timelock time must be in the future");
         _;
     }
     modifier refundable(bytes32 _contractId) {
         require(contracts[_contractId].sender == msg.sender, "refundable: not sender");
         require(contracts[_contractId].refunded == false, "refundable: already refunded");
         require(contracts[_contractId].withdrawn == false, "refundable: already withdrawn");
-        require(contracts[_contractId].timelock <= now, "refundable: timelock not yet passed");
+        require(contracts[_contractId].timelock <= block.timestamp, "refundable: timelock not yet passed");
         _;
     }
 
@@ -181,7 +181,7 @@ contract HashedTimelock {
     /**
      * @dev Get contract details.
      * @param _contractId HTLC contract id
-     * @return All parameters in struct LockContract for _contractId HTLC
+     * @return sender All parameters in struct LockContract for _contractId HTLC
      */
     function getContract(bytes32 _contractId)
         public
