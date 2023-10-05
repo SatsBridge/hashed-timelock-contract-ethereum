@@ -11,6 +11,14 @@
 
 Use these contracts for creating HTLCs on the Ethereum side of a cross chain atomic swap (for example the [xcat](https://github.com/chatch/xcat) project).
 
+## Deploying a contract
+
+In local hardhat setup (inside the container) it is possible to use this command to test deployment:
+
+```shell
+npx hardhat node & npx hardhat run --network localhost scripts/deploy.js
+```
+
 ## Run Tests
 * This fork is updated to work [with Hardhat](https://hardhat.org/)
 
