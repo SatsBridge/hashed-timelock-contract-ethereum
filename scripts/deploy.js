@@ -12,7 +12,7 @@ async function main() {
   await htlc.waitForDeployment();
 
   console.log(
-    `HashedTimelockERC20 deployed to ${lock.target}`
+    `HashedTimelockERC20 deployed to ${htlc.target}`
   );
 }
 
